@@ -1,0 +1,120 @@
+.message {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.message-user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.message-user .message-avatar {
+    background: var(--bg-tertiary);
+}
+
+.message-content {
+    max-width: 70%;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.message-user .message-content {
+    background: var(--accent-gradient);
+    color: var(--text-inverse);
+}
+
+.message-user .message-content p {
+    color: var(--text-inverse);
+}
+
+.message-content p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Markdown Content Styling */
+.markdown-content {
+    line-height: 1.6;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+}
+
+.markdown-content h1:first-child,
+.markdown-content h2:first-child,
+.markdown-content h3:first-child,
+.markdown-content h4:first-child {
+    margin-top: 0;
+}
+
+.markdown-content p {
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    margin-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.markdown-content li {
+    margin-bottom: var(--space-sm);
+}
+
+.markdown-content pre {
+    position: relative;
+    margin: var(--space-md) 0;
+}
+
+.markdown-content code {
+    font-size: 0.875rem;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid var(--accent-primary);
+    padding-left: var(--space-md);
+    margin: var(--space-md) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.markdown-content strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.markdown-content a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .message-content {
+        max-width: 85%;
+    }
+}
