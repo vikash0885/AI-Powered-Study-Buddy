@@ -11,8 +11,8 @@ function MoodSelector({ onSelectMood }) {
     return (
         <div className="mood-overlay">
             <div className="mood-modal">
-                <h2 className="mood-title">Aaj mood kaisa hai boss? 🎯</h2>
-                <p className="mood-subtitle">Apna mood select karo, main accordingly help karunga!</p>
+                <h2 className="mood-title">How are you feeling today? 🎯</h2>
+                <p className="mood-subtitle">Select your mood and I'll personalize your experience!</p>
 
                 <div className="mood-grid">
                     {moods.map((mood) => (

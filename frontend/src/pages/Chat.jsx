@@ -84,10 +84,10 @@ function Chat({ user, setUser }) {
 
         // Add mood-based welcome message
         const moodMessages = {
-            happy: "Awesome! Let's make today amazing! 🌟 Kya seekhna chahte ho aaj?",
-            tired: "No worries! Let's take it easy and learn comfortably 😌 Main aapki help karunga.",
-            focused: "Great! Let's crush those goals today! 💪 Batao kya karna hai!",
-            excited: "Woohoo! Your energy is contagious! Let's do this! 🚀 Chalo shuru karte hain!"
+            happy: "Awesome! Let's make today amazing! 🌟 What would you like to learn today?",
+            tired: "No worries! Let's take it easy and learn comfortably 😌 I'm here to help you.",
+            focused: "Great! Let's crush those goals today! 💪 Tell me what you want to achieve!",
+            excited: "Woohoo! Your energy is contagious! Let's do this! 🚀 Let's get started!"
         };
 
         const welcomeMsg = {
