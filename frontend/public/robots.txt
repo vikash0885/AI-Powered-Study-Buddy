@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vikash0885.github.io/AI-Powered-Study-Buddy/sitemap.xml
