@@ -31,10 +31,20 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Study Buddy API is running' });
 });
 
+// DB Status check (for debugging deployment)
+app.get('/api/db-status', (req, res) => {
+    try {
+        const result = db.prepare('SELECT count(*) as count FROM users').get();
+        res.json({ status: 'ok', database: 'connected', userCount: result.count });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong!' });
+    console.error('SERVER ERROR:', err);
+    res.status(500).json({ error: String(err.message || 'Something went wrong!') });
 });
 
 // Start server

@@ -22,7 +22,8 @@ function StudyPlanGenerator({ onClose }) {
             const response = await studyPlanAPI.generate(formData);
             setPlan(response.data.plan);
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to generate study plan');
+            const errorMsg = err.response?.data?.error || err.message || 'Failed to generate study plan';
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
