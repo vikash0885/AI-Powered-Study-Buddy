@@ -76,9 +76,16 @@ function saveDatabase() {
 
 // Wrapper class to mimic better-sqlite3 API
 class DatabaseWrapper {
+  async ensureInit() {
+    if (!db) {
+      await initDatabase();
+    }
+  }
+
   prepare(sql) {
     return {
-      run: (...params) => {
+      run: async (...params) => {
+        await this.ensureInit();
         const stmt = db.prepare(sql);
         stmt.bind(params);
         stmt.step();
@@ -88,14 +95,16 @@ class DatabaseWrapper {
         saveDatabase();
         return { lastInsertRowid, changes };
       },
-      get: (...params) => {
+      get: async (...params) => {
+        await this.ensureInit();
         const stmt = db.prepare(sql);
         stmt.bind(params);
         const result = stmt.step() ? stmt.getAsObject() : null;
         stmt.free();
         return result;
       },
-      all: (...params) => {
+      all: async (...params) => {
+        await this.ensureInit();
         const stmt = db.prepare(sql);
         stmt.bind(params);
         const results = [];
@@ -109,8 +118,6 @@ class DatabaseWrapper {
   }
 }
 
-// Initialize and export
-await initDatabase();
-
+// Export pre-initialized for now but handle async in methods
 export default new DatabaseWrapper();
 

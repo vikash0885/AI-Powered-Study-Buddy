@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         }
 
         // Check if user already exists
-        const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+        const existingUser = await db.prepare('SELECT * FROM users WHERE email = ?').get(email);
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists with this email' });
         }
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Insert user
-        const result = db.prepare(
+        const result = await db.prepare(
             'INSERT INTO users (name, email, password, education_level) VALUES (?, ?, ?, ?)'
         ).run(name, email, hashedPassword, educationLevel || 'general');
 
@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Find user
-        const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+        const user = await db.prepare('SELECT * FROM users WHERE email = ?').get(email);
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -94,9 +94,9 @@ router.post('/login', async (req, res) => {
 });
 
 // Get current user
-router.get('/me', authMiddleware, (req, res) => {
+router.get('/me', authMiddleware, async (req, res) => {
     try {
-        const user = db.prepare('SELECT id, name, email, education_level, created_at FROM users WHERE id = ?')
+        const user = await db.prepare('SELECT id, name, email, education_level, created_at FROM users WHERE id = ?')
             .get(req.userId);
 
         if (!user) {

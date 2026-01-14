@@ -19,7 +19,7 @@ router.post('/message', authMiddleware, async (req, res) => {
         // Create new conversation if not provided
         if (!convId) {
             const title = message.substring(0, 50) + (message.length > 50 ? '...' : '');
-            const result = db.prepare(
+            const result = await db.prepare(
                 'INSERT INTO conversations (user_id, title, subject) VALUES (?, ?, ?)'
             ).run(req.userId, title, subject || 'General');
 
@@ -27,7 +27,7 @@ router.post('/message', authMiddleware, async (req, res) => {
         }
 
         // Verify conversation belongs to user
-        const conversation = db.prepare(
+        const conversation = await db.prepare(
             'SELECT * FROM conversations WHERE id = ? AND user_id = ?'
         ).get(convId, req.userId);
 
@@ -36,12 +36,12 @@ router.post('/message', authMiddleware, async (req, res) => {
         }
 
         // Save user message
-        db.prepare(
+        await db.prepare(
             'INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)'
         ).run(convId, 'user', message);
 
         // Get conversation history
-        const history = db.prepare(
+        const history = await db.prepare(
             'SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY created_at ASC'
         ).all(convId);
 
@@ -49,12 +49,12 @@ router.post('/message', authMiddleware, async (req, res) => {
         const aiResponse = await generateAIResponse(message, history.slice(0, -1), subject);
 
         // Save AI response
-        db.prepare(
+        await db.prepare(
             'INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)'
         ).run(convId, 'assistant', aiResponse);
 
         // Update conversation timestamp
-        db.prepare(
+        await db.prepare(
             'UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = ?'
         ).run(convId);
 
@@ -69,9 +69,9 @@ router.post('/message', authMiddleware, async (req, res) => {
 });
 
 // Get user's conversations
-router.get('/history', authMiddleware, (req, res) => {
+router.get('/history', authMiddleware, async (req, res) => {
     try {
-        const conversations = db.prepare(`
+        const conversations = await db.prepare(`
       SELECT 
         c.id, 
         c.title, 
@@ -94,12 +94,12 @@ router.get('/history', authMiddleware, (req, res) => {
 });
 
 // Get specific conversation with messages
-router.get('/conversation/:id', authMiddleware, (req, res) => {
+router.get('/conversation/:id', authMiddleware, async (req, res) => {
     try {
         const { id } = req.params;
 
         // Get conversation
-        const conversation = db.prepare(
+        const conversation = await db.prepare(
             'SELECT * FROM conversations WHERE id = ? AND user_id = ?'
         ).get(id, req.userId);
 
@@ -108,7 +108,7 @@ router.get('/conversation/:id', authMiddleware, (req, res) => {
         }
 
         // Get messages
-        const messages = db.prepare(
+        const messages = await db.prepare(
             'SELECT id, role, content, created_at FROM messages WHERE conversation_id = ? ORDER BY created_at ASC'
         ).all(id);
 
@@ -123,11 +123,11 @@ router.get('/conversation/:id', authMiddleware, (req, res) => {
 });
 
 // Delete conversation
-router.delete('/conversation/:id', authMiddleware, (req, res) => {
+router.delete('/conversation/:id', authMiddleware, async (req, res) => {
     try {
         const { id } = req.params;
 
-        const result = db.prepare(
+        const result = await db.prepare(
             'DELETE FROM conversations WHERE id = ? AND user_id = ?'
         ).run(id, req.userId);
 
