@@ -7,6 +7,7 @@ import StudyPlanGenerator from '../components/StudyPlanGenerator';
 import Footer from '../components/Footer';
 import { chatAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
+import collegeImage from '../assets/college.jpg';
 import './Chat.css';
 
 function Chat({ user, setUser }) {
