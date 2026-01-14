@@ -9,6 +9,7 @@ import { chatAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
 import collegeImage from '../assets/college.jpg';
 import programmingImage from '../assets/programming.png';
+import examPrepImage from '../assets/examprep.jpg';
 import './Chat.css';
 
 function Chat({ user, setUser }) {
@@ -191,8 +192,15 @@ function Chat({ user, setUser }) {
                                             <span>Programming</span>
                                             <small>Coding, Web Dev, DSA</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setSubject('exam-prep')}>
-                                            <span>📝</span>
+                                        <button
+                                            className="suggestion-card image-card"
+                                            onClick={() => setSubject('exam-prep')}
+                                            style={{
+                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${examPrepImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center'
+                                            }}
+                                        >
                                             <span>Exam Prep</span>
                                             <small>JEE, NEET, UPSC, SSC</small>
                                         </button>
