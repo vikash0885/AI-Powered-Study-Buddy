@@ -16,7 +16,10 @@ let db;
 
 // Initialize database
 async function initDatabase() {
-  SQL = await initSqlJs();
+  const wasmPath = path.join(__dirname, '..', 'sql-wasm.wasm');
+  SQL = await initSqlJs({
+    locateFile: file => wasmPath
+  });
 
   // Load existing database or create new one
   if (fs.existsSync(dbPath)) {
