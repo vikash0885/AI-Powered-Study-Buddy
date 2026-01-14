@@ -166,7 +166,7 @@ function Chat({ user, setUser }) {
 
 
                 <div className="chat-messages">
-                    {messages.length === 0 ? (
+                    {messages.length === 0 && !subject ? (
                         <div className="welcome-message">
                             <h1 className="gradient-text">Hello, {user?.name}!</h1>
                             <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
