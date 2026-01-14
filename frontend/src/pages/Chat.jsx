@@ -252,7 +252,14 @@ function Chat({ user, setUser }) {
                     <input
                         type="text"
                         className="input chat-input"
-                        placeholder="Ask me anything..."
+                        placeholder={
+                            subject === 'school' ? "Ask about Class 1-12, Homework..." :
+                                subject === 'college' ? "Ask about Engineering, Arts, Science..." :
+                                    subject === 'programming' ? "Ask about Coding, Web Dev, DSA..." :
+                                        subject === 'exam-prep' ? "Ask about JEE, NEET, UPSC, SSC..." :
+                                            subject === 'general' ? "Ask me anything..." :
+                                                "Ask me anything..."
+                        }
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         disabled={loading}
