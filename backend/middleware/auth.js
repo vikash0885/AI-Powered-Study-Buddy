@@ -12,7 +12,8 @@ export const authMiddleware = (req, res, next) => {
         const token = authHeader.substring(7);
 
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const JWT_SECRET = process.env.JWT_SECRET || 'fallback_study_buddy_secret_2024';
+        const decoded = jwt.verify(token, JWT_SECRET);
 
         // Add user info to request
         req.userId = decoded.userId;

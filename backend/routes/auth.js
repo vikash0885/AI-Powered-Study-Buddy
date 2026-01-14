@@ -5,6 +5,7 @@ import db from '../config/database.js';
 import { authMiddleware } from '../middleware/auth.js';
 
 const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback_study_buddy_secret_2024';
 
 // Register new user
 router.post('/register', async (req, res) => {
@@ -33,7 +34,7 @@ router.post('/register', async (req, res) => {
         // Generate token
         const token = jwt.sign(
             { userId: result.lastInsertRowid, email },
-            process.env.JWT_SECRET,
+            JWT_SECRET,
             { expiresIn: '7d' }
         );
 
@@ -73,7 +74,7 @@ router.post('/login', async (req, res) => {
         // Generate token
         const token = jwt.sign(
             { userId: user.id, email: user.email },
-            process.env.JWT_SECRET,
+            JWT_SECRET,
             { expiresIn: '7d' }
         );
 
