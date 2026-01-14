@@ -152,21 +152,30 @@ function Chat({ user, setUser }) {
                                     <h1 className="gradient-text">Hello, {user?.name}!</h1>
                                     <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
                                     <div className="suggestion-grid">
-                                        <button className="suggestion-card" onClick={() => setInput('Explain photosynthesis')}>
-                                            <span>🌱</span>
-                                            <span>Science Concepts</span>
+                                        <button className="suggestion-card" onClick={() => setSubject('school')}>
+                                            <span>🏫</span>
+                                            <span>School</span>
+                                            <small>Class 1-12, Homework</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setInput('How do Python loops work?')}>
+                                        <button className="suggestion-card" onClick={() => setSubject('college')}>
+                                            <span>🎓</span>
+                                            <span>College</span>
+                                            <small>Engineering, Arts, Science</small>
+                                        </button>
+                                        <button className="suggestion-card" onClick={() => setSubject('programming')}>
                                             <span>💻</span>
                                             <span>Programming</span>
+                                            <small>Coding, Web Dev, DSA</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setInput('Help me solve quadratic equations')}>
-                                            <span>📐</span>
-                                            <span>Mathematics</span>
+                                        <button className="suggestion-card" onClick={() => setSubject('exam-prep')}>
+                                            <span>📝</span>
+                                            <span>Exam Prep</span>
+                                            <small>JEE, NEET, UPSC, SSC</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setInput('Create a study plan for DBMS')}>
+                                        <button className="suggestion-card" onClick={() => setSubject('general')}>
                                             <span>📚</span>
-                                            <span>Study Plans</span>
+                                            <span>General</span>
+                                            <small>Ask anything!</small>
                                         </button>
                                     </div>
                                 </div>

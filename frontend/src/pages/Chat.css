@@ -69,19 +69,28 @@
     gap: var(--space-sm);
     cursor: pointer;
     transition: var(--transition);
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-primary);
+    text-align: center;
+}
+
+.suggestion-card small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .suggestion-card span:first-child {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: var(--space-xs);
 }
 
 .suggestion-card:hover {
     border-color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    background: rgba(0, 229, 255, 0.05);
 }
 
 .typing-indicator {
