@@ -150,7 +150,7 @@ function Chat({ user, setUser }) {
                             {messages.length === 0 ? (
                                 <div className="welcome-message">
                                     <h1 className="gradient-text">Hello, {user?.name}!</h1>
-                                    <p>I'm your AI Study Buddy. Ask me anything about:</p>
+                                    <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
                                     <div className="suggestion-grid">
                                         <button className="suggestion-card" onClick={() => setInput('Explain photosynthesis')}>
                                             <span>🌱</span>
