@@ -22,7 +22,8 @@ function Login({ setUser }) {
             setUser(response.data.user);
             navigate('/chat');
         } catch (err) {
-            setError(err.response?.data?.error || 'Login failed');
+            const errorMsg = err.response?.data?.error || err.message || 'Login failed';
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }

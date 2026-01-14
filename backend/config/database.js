@@ -6,7 +6,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '..', 'database.sqlite');
+const isVercel = process.env.VERCEL === '1';
+const dbPath = process.env.DATABASE_PATH || (isVercel
+  ? path.join('/tmp', 'database.sqlite')
+  : path.join(__dirname, '..', 'database.sqlite'));
 
 let SQL;
 let db;

@@ -40,7 +40,8 @@ function Register({ setUser }) {
             setUser(response.data.user);
             navigate('/chat');
         } catch (err) {
-            setError(err.response?.data?.error || 'Registration failed');
+            const errorMsg = err.response?.data?.error || err.message || 'Registration failed';
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
