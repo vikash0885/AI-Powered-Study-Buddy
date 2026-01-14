@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import { chatAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
 import collegeImage from '../assets/college.jpg';
+import programmingImage from '../assets/programming.png';
 import './Chat.css';
 
 function Chat({ user, setUser }) {
@@ -178,8 +179,15 @@ function Chat({ user, setUser }) {
                                             <span>College</span>
                                             <small>Engineering, Arts, Science</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setSubject('programming')}>
-                                            <span>💻</span>
+                                        <button
+                                            className="suggestion-card image-card"
+                                            onClick={() => setSubject('programming')}
+                                            style={{
+                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${programmingImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center'
+                                            }}
+                                        >
                                             <span>Programming</span>
                                             <small>Coding, Web Dev, DSA</small>
                                         </button>
