@@ -1,0 +1,164 @@
+.mood-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.mood-modal {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--bg-tertiary);
+    animation: slideUp 0.4s ease-out;
+}
+
+.mood-title {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mood-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    font-size: 0.95rem;
+}
+
+.mood-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.mood-button {
+    background: var(--bg-tertiary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mood-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--mood-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mood-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--mood-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.mood-button:hover::before {
+    opacity: 0.1;
+}
+
+.mood-emoji {
+    font-size: 3.5rem;
+    position: relative;
+    z-index: 1;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.mood-button:hover .mood-emoji {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+.mood-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+@media (max-width: 480px) {
+    .mood-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mood-emoji {
+        font-size: 3rem;
+    }
+}

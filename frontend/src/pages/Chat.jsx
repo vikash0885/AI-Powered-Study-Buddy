@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import ChatMessage from '../components/ChatMessage';
 import SubjectSelector from '../components/SubjectSelector';
+import MoodSelector from '../components/MoodSelector';
 import Footer from '../components/Footer';
 import { chatAPI, authAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
@@ -19,11 +20,20 @@ function Chat({ user, setUser }) {
     const [currentConversation, setCurrentConversation] = useState(null);
     const [conversations, setConversations] = useState([]);
     const [subject, setSubject] = useState(null);
+    const [mood, setMood] = useState(null);
+    const [showMoodSelector, setShowMoodSelector] = useState(false);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         loadConversations();
+        // Show mood selector on first visit
+        const savedMood = localStorage.getItem('userMood');
+        if (!savedMood) {
+            setShowMoodSelector(true);
+        } else {
+            setMood(savedMood);
+        }
     }, []);
 
     useEffect(() => {
@@ -65,6 +75,27 @@ function Chat({ user, setUser }) {
         setCurrentConversation(null);
         setMessages([]);
         setSubject(selectedSubject);
+    };
+
+    const handleMoodSelect = (selectedMood) => {
+        setMood(selectedMood);
+        localStorage.setItem('userMood', selectedMood);
+        setShowMoodSelector(false);
+
+        // Add mood-based welcome message
+        const moodMessages = {
+            happy: "Awesome! Let's make today amazing! 🌟 Kya seekhna chahte ho aaj?",
+            tired: "No worries! Let's take it easy and learn comfortably 😌 Main aapki help karunga.",
+            focused: "Great! Let's crush those goals today! 💪 Batao kya karna hai!",
+            excited: "Woohoo! Your energy is contagious! Let's do this! 🚀 Chalo shuru karte hain!"
+        };
+
+        const welcomeMsg = {
+            role: 'assistant',
+            content: moodMessages[selectedMood] || "Hello! How can I help you today?",
+            created_at: new Date()
+        };
+        setMessages([welcomeMsg]);
     };
 
     const handleSendMessage = async (e) => {
@@ -146,7 +177,9 @@ function Chat({ user, setUser }) {
     };
 
     return (
-        <div className="chat-page">
+        <div className={`chat-page ${mood ? `mood-${mood}` : ''}`}>
+            {showMoodSelector && <MoodSelector onSelectMood={handleMoodSelect} />}
+
             <Sidebar
                 user={user}
                 conversations={conversations}
